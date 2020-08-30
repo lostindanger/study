@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let arr = [
+        { name: "小明", date: 202009, attr: 77 },
+        { name: "小明", date: 202010, attr: 88 },
+        { name: "发发", date: 202009, attr: 50 },
+        { name: "发发", date: 202010, attr: 40 },
+        { name: "猪猪", date: 202009, attr: 20 },
+        { name: "猪猪", date: 202010, attr: 60 },
+        { name: "干", date: 202007, attr: 100 },
+    ];
+
+    let yearArr = [];//记录下共有多少不同年月
+    let nameArr = [];//记录下共有多少不同名字
+    let data = [];//存放处理后的数据（打横）
+
+    for (let i = 0; i < arr.length; i++) {
+        if (yearArr.indexOf(arr[i].date) === -1) {
+            yearArr.push(arr[i].date);
+        }
+        if (nameArr.indexOf(arr[i].name) === -1) {
+            nameArr.push(arr[i].name);
+        }
+    }
+    let yearArr2 = yearArr.sort(function (a, b) {//对年月排序
+        return a - b
+    })
+    console.log(yearArr, nameArr);
+
+    for (let x = 0; x < yearArr.length; x++) {
+        let temp = [yearArr[x]];//将同一年的数据打横
+        for (let y = 0; y < nameArr.length; y++) {
+            let tempLength = temp.length;//记录临时数组的长度
+            for (let z = 0; z < arr.length; z++) {
+                if (arr[z].name === nameArr[y] && arr[z].date === yearArr[x]) {
+                    temp.push(arr[z].attr);//临时数组存入具有对应名字与年月的数据
+                }
+            }
+            if (tempLength === temp.length) {
+                temp.push('-');//若临时数组长度未增加，说明这个名字无该年月数据，存入‘-’占位
+            }
+        }
+        data.push(temp);
+    }
+    console.log(data);
+</script>
+
+</html>
